@@ -1,0 +1,92 @@
+/* DropdownStyles.css */
+
+/* Variables */
+:root {
+    --border-color: black;
+    --background-color: #242424;
+    --hover-color: #2d2d2d;
+    --input-background-color: #babbbe;
+  }
+  
+  /* Reusable Styles */
+  .BaseContainer {
+    box-sizing: border-box;
+    width: 100%;
+  }
+  
+  /* DropdownWrapper */
+  .DropdownWrapper {
+    position: relative;
+    z-index: var(--z-index, 0);
+    cursor: pointer;
+  }
+  
+  /* InputBtn */
+  .InputBtn {
+    width: 100%;
+    padding: 6px 10px 5px 25px;
+    background-color: white;
+    border: solid 1px var(--border-color);
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: left;
+  }
+  
+  /* DropdownMenu */
+  .DropdownMenu {
+    max-height: 25vh;
+    box-shadow: 0px 0px 0px 1px var(--border-color) inset;
+    border-radius: 10px;
+    position: absolute;
+    top: 30px;
+    background-color: var(--background-color);
+    overflow: auto;
+    display: flex;
+    flex-flow: column;
+    padding-top: 20px;
+    padding-bottom: 10px;
+  }
+  
+  /* DropdownSelectionContainer */
+  .DropdownSelectionContainer {
+    padding: 1em 0em;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding-left: 0.3em;
+    background-color: var(--background-color);
+  }
+  
+  .DropdownSelectionContainer:hover,
+  .DropdownSelectionContainer:focus {
+    background-color: var(--hover-color);
+  }
+  
+  /* DropdownSelection */
+  .DropdownSelection {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-left: 15px;
+    color: white;
+  }
+  
+  /* SearchBar */
+  .SearchBar {
+    width: 40%;
+    height: 15px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: solid 1px var(--border-color);
+    border-radius: 0 0px 0px 10px;
+    background-color: var(--input-background-color);
+    color: black;
+    padding: 5px;
+    box-sizing: initial;
+  }
+  
+  /* NoDataErrMsg */
+  .NoDataErrMsg {
+    color: white;
+  }
+  
