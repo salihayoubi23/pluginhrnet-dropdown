@@ -2,14 +2,19 @@
   "name": "pluginhrnet",
   "version": "1.0.6",
   "description": "plugin pour le dernier projet oc ",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "build": "babel src -d dist"
+  },
   "main": "dist/Dropdown.js",
   "files": [
     "dist",
     "src"
   ],
-  "scripts": {
-    "build": "babel src -d dist"
-  },
+  
   "author": "saliha youbi",
   "license": "ISC",
   "devDependencies": {

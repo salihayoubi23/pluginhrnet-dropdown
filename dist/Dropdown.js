@@ -20,9 +20,10 @@ function _nonIterableRest() { throw new TypeError("Invalid attempt to destructur
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; } // Votre fichier React (Dropdown.js)
-// Importez le fichier CSS
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; } // Import des modules nécessaires depuis React et Prop-Types
+// Importez le fichier CSS pour les styles du composant
 
+// Déclaration du composant fonctionnel Dropdown avec les props
 var Dropdown = function Dropdown(_ref) {
   var dropdownData = _ref.dropdownData,
     onChange = _ref.onChange,
@@ -32,6 +33,7 @@ var Dropdown = function Dropdown(_ref) {
     name = _ref$name === void 0 ? Math.random() : _ref$name,
     _ref$id = _ref.id,
     id = _ref$id === void 0 ? Math.random() : _ref$id;
+  // États du composant
   var _useState = (0, _react.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
     dropdownIsOpen = _useState2[0],
@@ -49,6 +51,8 @@ var Dropdown = function Dropdown(_ref) {
     dropdownZIndex = _useState8[0],
     setDropdownZIndex = _useState8[1];
   var dropdownRef = (0, _react.useRef)(null);
+
+  // Fonction pour basculer l'état d'ouverture du dropdown
   var toogleDropdown = function toogleDropdown() {
     setDropdownIsOpen(function (state) {
       return !state;
@@ -60,6 +64,8 @@ var Dropdown = function Dropdown(_ref) {
       setFilteredDropdownData(_toConsumableArray(dropdownData));
     }
   };
+
+  // Gestion du clic sur une sélection dans le dropdown
   var handleSelectionClick = function handleSelectionClick(e) {
     var tagName = e.target.tagName.toLowerCase();
     if (tagName && tagName === "p") {
@@ -71,6 +77,8 @@ var Dropdown = function Dropdown(_ref) {
     }
     toogleDropdown();
   };
+
+  // Filtrage des données du dropdown en fonction de la saisie de l'utilisateur
   var filterData = function filterData(e) {
     var search = e.target.value;
     if (typeof search === "string") {
@@ -83,9 +91,13 @@ var Dropdown = function Dropdown(_ref) {
       return elem.includes(search);
     }));
   };
+
+  // Effet secondaire pour déclencher la fonction onChange lorsque la sélection change
   (0, _react.useEffect)(function () {
     onChange(dropdownSelection);
   }, [dropdownSelection]);
+
+  // Effet secondaire pour réinitialiser le dropdown en cas de changement de onReset
   (0, _react.useEffect)(function () {
     if (onReset) {
       setDropdownIsOpen(false);
@@ -94,21 +106,29 @@ var Dropdown = function Dropdown(_ref) {
       setDropdownZIndex(0);
     }
   }, [onReset]);
+
+  // Gestion du clic en dehors du dropdown pour le fermer
   var handleOutsideClick = function handleOutsideClick(event) {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       toogleDropdown();
     }
   };
+
+  // Effet secondaire pour ajouter ou supprimer le gestionnaire de clic en dehors du dropdown
   (0, _react.useEffect)(function () {
     if (dropdownIsOpen) {
       document.addEventListener("click", handleOutsideClick);
     } else {
       document.removeEventListener("click", handleOutsideClick);
     }
+
+    // Nettoyage du gestionnaire de clic en dehors du dropdown lors du démontage du composant
     return function () {
       document.removeEventListener("click", handleOutsideClick);
     };
   }, [dropdownIsOpen]);
+
+  // Rendu du composant Dropdown
   return /*#__PURE__*/_react["default"].createElement("div", {
     className: "DropdownWrapper BaseContainer",
     ref: dropdownRef
@@ -144,11 +164,14 @@ var Dropdown = function Dropdown(_ref) {
     className: "NoDataErrMsg"
   }, "No content to display after search")));
 };
+
+// Validation des types de propriétés (props)
 Dropdown.propTypes = {
   dropdownData: _propTypes["default"].arrayOf(_propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].number])).isRequired,
   onChange: _propTypes["default"].func.isRequired,
   onReset: _propTypes["default"].bool,
-  name: _propTypes["default"].number,
-  id: _propTypes["default"].number
+  name: _propTypes["default"].string,
+  id: _propTypes["default"].string
 };
+// Export du composant Dropdown pour une utilisation dans d'autres fichiers
 var _default = exports["default"] = Dropdown;
