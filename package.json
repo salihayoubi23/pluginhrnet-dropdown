@@ -1,6 +1,6 @@
 {
   "name": "pluginhrnet",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "plugin pour le dernier projet oc ",
   "main": "dist/Dropdown.js",
   "files": [

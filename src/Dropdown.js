@@ -1,9 +1,14 @@
-// Import des modules nécessaires depuis React et Prop-Types
-import React, { useState, useEffect, useRef } from "react";
-import PropTypes from "prop-types";
-import "./DropdownStyles.css"; // Importez le fichier CSS pour les styles du composant
-
-// Déclaration du composant fonctionnel Dropdown avec les props
+/**
+ * Composant fonctionnel pour une liste déroulante (Dropdown).
+ * @component
+ * @param {Object} props - Les propriétés du composant.
+ * @param {Array} props.dropdownData - Les données de la liste déroulante.
+ * @param {Function} props.onChange - Fonction appelée lorsqu'une sélection est modifiée.
+ * @param {boolean} [props.onReset=false] - Indique si le dropdown doit être réinitialisé.
+ * @param {string} [props.name] - Nom du composant.
+ * @param {string} [props.id] - Identifiant du composant.
+ * @returns {JSX.Element} Composant Dropdown.
+ */
 const Dropdown = ({
   dropdownData,
   onChange,
@@ -20,7 +25,11 @@ const Dropdown = ({
   const [dropdownZIndex, setDropdownZIndex] = useState(0);
   const dropdownRef = useRef(null);
 
-  // Fonction pour basculer l'état d'ouverture du dropdown
+  /**
+   * Fonction pour basculer l'état d'ouverture du dropdown.
+   * @function
+   * @returns {void}
+   */
   const toogleDropdown = () => {
     setDropdownIsOpen((state) => !state);
     setDropdownZIndex((dropdownZIndex) => (dropdownZIndex === 0 ? 10 : 0));
@@ -29,7 +38,12 @@ const Dropdown = ({
     }
   };
 
-  // Gestion du clic sur une sélection dans le dropdown
+  /**
+   * Gestion du clic sur une sélection dans le dropdown.
+   * @function
+   * @param {Event} e - Objet événement du clic.
+   * @returns {void}
+   */
   const handleSelectionClick = (e) => {
     const tagName = e.target.tagName.toLowerCase();
     if (tagName && tagName === "p") {
@@ -42,7 +56,12 @@ const Dropdown = ({
     toogleDropdown();
   };
 
-  // Filtrage des données du dropdown en fonction de la saisie de l'utilisateur
+  /**
+   * Filtrage des données du dropdown en fonction de la saisie de l'utilisateur.
+   * @function
+   * @param {Event} e - Objet événement de la saisie.
+   * @returns {void}
+   */
   const filterData = (e) => {
     let search = e.target.value;
     if (typeof search === "string") {
@@ -58,12 +77,20 @@ const Dropdown = ({
     );
   };
 
-  // Effet secondaire pour déclencher la fonction onChange lorsque la sélection change
+  /**
+   * Effet secondaire pour déclencher la fonction onChange lorsque la sélection change.
+   * @function
+   * @returns {void}
+   */
   useEffect(() => {
     onChange(dropdownSelection);
   }, [dropdownSelection]);
 
-  // Effet secondaire pour réinitialiser le dropdown en cas de changement de onReset
+  /**
+   * Effet secondaire pour réinitialiser le dropdown en cas de changement de onReset.
+   * @function
+   * @returns {void}
+   */
   useEffect(() => {
     if (onReset) {
       setDropdownIsOpen(false);
@@ -73,14 +100,23 @@ const Dropdown = ({
     }
   }, [onReset]);
 
-  // Gestion du clic en dehors du dropdown pour le fermer
+  /**
+   * Gestion du clic en dehors du dropdown pour le fermer.
+   * @function
+   * @param {Event} event - Objet événement du clic en dehors du dropdown.
+   * @returns {void}
+   */
   const handleOutsideClick = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       toogleDropdown();
     }
   };
 
-  // Effet secondaire pour ajouter ou supprimer le gestionnaire de clic en dehors du dropdown
+  /**
+   * Effet secondaire pour ajouter ou supprimer le gestionnaire de clic en dehors du dropdown.
+   * @function
+   * @returns {void}
+   */
   useEffect(() => {
     if (dropdownIsOpen) {
       document.addEventListener("click", handleOutsideClick);
@@ -88,7 +124,11 @@ const Dropdown = ({
       document.removeEventListener("click", handleOutsideClick);
     }
 
-    // Nettoyage du gestionnaire de clic en dehors du dropdown lors du démontage du composant
+    /**
+     * Nettoyage du gestionnaire de clic en dehors du dropdown lors du démontage du composant.
+     * @function
+     * @returns {void}
+     */
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
@@ -134,7 +174,11 @@ const Dropdown = ({
   );
 };
 
-// Validation des types de propriétés (props)
+/**
+ * Validation des types de propriétés (props).
+ * @static
+ * @type {Object}
+ */
 Dropdown.propTypes = {
   dropdownData: PropTypes.arrayOf(
     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
@@ -144,5 +188,5 @@ Dropdown.propTypes = {
   name: PropTypes.string,
   id: PropTypes.string,
 };
-// Export du composant Dropdown pour une utilisation dans d'autres fichiers
+
 export default Dropdown;
